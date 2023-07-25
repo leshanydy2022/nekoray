@@ -132,9 +132,10 @@
                     "nekobox_core.exe"
                 ],
                 "outbound": "direct"
-            },
+            }
             //%PROCESS_NAME_RULE%
             //%CIDR_RULE%
+            ,
             {
                 "port": 53,
                 "outbound": "dns-out"
