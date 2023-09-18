@@ -81,6 +81,7 @@ DialogBasicSettings::DialogBasicSettings(QWidget *parent)
     D_LOAD_INT(test_download_timeout)
     D_LOAD_STRING(test_latency_url)
     D_LOAD_STRING(test_download_url)
+    D_LOAD_BOOL(old_share_link_format)
 
     connect(ui->custom_inbound_edit, &QPushButton::clicked, this, [=] {
         C_EDIT_JSON_ALLOW_EMPTY(custom_inbound)
@@ -169,6 +170,8 @@ DialogBasicSettings::DialogBasicSettings(QWidget *parent)
     CACHE.extraCore = QString2QJsonObject(NekoGui::dataStore->extraCore->core_map);
     if (!CACHE.extraCore.contains("naive")) CACHE.extraCore.insert("naive", "");
     if (!CACHE.extraCore.contains("hysteria")) CACHE.extraCore.insert("hysteria", "");
+    if (!CACHE.extraCore.contains("hysteria2")) CACHE.extraCore.insert("hysteria2", "");
+    if (!CACHE.extraCore.contains("tuic")) CACHE.extraCore.insert("tuic", "");
     //
     auto extra_core_layout = ui->extra_core_box_scrollAreaWidgetContents->layout();
     for (const auto &s: CACHE.extraCore.keys()) {
@@ -271,6 +274,7 @@ void DialogBasicSettings::accept() {
     D_SAVE_INT(test_download_timeout)
     D_SAVE_STRING(test_latency_url)
     D_SAVE_STRING(test_download_url)
+    D_SAVE_BOOL(old_share_link_format)
 
     // Style
 
@@ -364,6 +368,7 @@ void DialogBasicSettings::on_set_custom_icon_clicked() {
             MessageBoxWarning(title, tr("Please select a valid square image."));
             return;
         }
+        QFile::remove(user_icon_path);
         QFile::copy(fn, user_icon_path);
     } else if (c == 1) {
         QFile::remove(user_icon_path);

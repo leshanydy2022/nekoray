@@ -21,6 +21,7 @@ namespace NekoGui {
         bool dns_routing = true;
         bool use_dns_object = false;
         QString dns_object = "";
+        QString dns_final_out = "proxy";
 
         // Misc
         QString domain_strategy = "AsIs";
@@ -97,6 +98,7 @@ namespace NekoGui {
         QString test_download_url = "http://cachefly.cachefly.net/10mb.test";
         int test_download_timeout = 30;
         int test_concurrent = 5;
+        bool old_share_link_format = true;
         int traffic_loop_interval = 1000;
         bool connection_statistics = false;
         int current_group = 0; // group id
@@ -135,7 +137,7 @@ namespace NekoGui {
         // Socks & HTTP Inbound
         QString inbound_address = "127.0.0.1";
         int inbound_socks_port = 2080; // or Mixed
-        int inbound_http_port = -2081;
+        int inbound_http_port = 2081;
         InboundAuthorization *inbound_auth = new InboundAuthorization;
         QString custom_inbound = "{\"inbounds\": []}";
 
@@ -149,7 +151,7 @@ namespace NekoGui {
         int vpn_implementation = 0;
         int vpn_mtu = 9000;
         bool vpn_ipv6 = false;
-        bool vpn_hide_console = false;
+        bool vpn_hide_console = true;
         bool vpn_strict_route = false;
         bool vpn_rule_white = false;
         QString vpn_rule_process = "";

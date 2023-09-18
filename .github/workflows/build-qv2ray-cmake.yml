@@ -38,7 +38,7 @@ jobs:
         if: steps.cache-common.outputs.cache-hit != 'true'
         uses: actions/setup-go@v3
         with:
-          go-version: ^1.20
+          go-version: ^1.21
       - name: Build golang parts
         if: steps.cache-common.outputs.cache-hit != 'true'
         shell: bash
@@ -59,9 +59,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - platform: windows-2022
-            arch: x64
-            qt_version: "5.15"
           - platform: windows-2022
             arch: x64
             qt_version: "6.5"
@@ -126,12 +123,8 @@ jobs:
           source libs/env_qtsdk.sh $PWD/qtsdk/Qt
           mkdir build
           cd build
-          if [ "$DL_QT_VER" == "5.15" ]; then
-            cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
-          else
-            cmake -GNinja -DQT_VERSION_MAJOR=6 -DCMAKE_BUILD_TYPE=Release ..
-          fi
-          ninja
+          cmake -GNinja -DQT_VERSION_MAJOR=6 -DCMAKE_BUILD_TYPE=Release ..
+          ninja -j2
           cd ..
           ./libs/deploy_windows64.sh
       - name: Linux - Generate MakeFile and Build
@@ -171,14 +164,11 @@ jobs:
           curl -Lo - https://github.com/tcnksm/ghr/releases/download/v0.13.0/ghr_v0.13.0_linux_amd64.tar.gz | tar xzv
           mv ghr*linux_amd64/ghr .
           ####
-          source libs/deploy_common.sh
+          source libs/env_deploy.sh
           find . -name artifacts.tgz | xargs -n1 tar xvzf
           cd deployment
           cp -r public_res/* linux64
           cp -r public_res/* windows64
-          cp -r public_res/* windows7-x64
-          cp windows64/neko*core.exe windows7-x64
-          cp windows64/updater.exe windows7-x64
           rm -rf public_res *.pdb
           ####
           mv linux64 nekoray
@@ -188,14 +178,10 @@ jobs:
           mv windows64 nekoray
           zip -r $version_standalone-windows64.zip nekoray
           rm -rf nekoray
-          ####
-          mv windows7-x64 nekoray
-          zip -r $version_standalone-windows7-x64.zip nekoray
-          rm -rf nekoray
       - name: Pack Debian
         if: github.event.inputs.publish != 'y'
         run: |
-          source libs/deploy_common.sh
+          source libs/env_deploy.sh
           find . -name artifacts.tgz | xargs -n1 tar xvzf
           cd deployment
           cp -r public_res/* linux64
@@ -205,7 +191,7 @@ jobs:
           sudo rm -rf nekoray
       - name: Pack AppImage
         run: |
-          source libs/deploy_common.sh
+          source libs/env_deploy.sh
           find . -name artifacts.tgz | xargs -n1 tar xvzf
           cd deployment
           cp -r public_res/* linux64
@@ -217,7 +203,6 @@ jobs:
           cd deployment
           rm -rf linux64
           rm -rf windows64
-          rm -rf windows7-x64
           rm -rf public_res
           rm -rf *.pdb
       - name: Uploading Artifact

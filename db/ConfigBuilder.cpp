@@ -323,11 +323,16 @@ namespace NekoGui {
                 {"outboundTag", "direct"},
             });
         }
-        dnsServers += QJsonObject{
+        QJsonObject directObj{
             {"address", directDnsAddress.replace("https://", "https+local://")},
             {"queryStrategy", dataStore->routing->direct_dns_strategy},
             {"domains", QList2QJsonArray<QString>(status->domainListDNSDirect)},
         };
+        if (dataStore->routing->dns_final_out == "bypass") {
+            dnsServers.prepend(directObj);
+        } else {
+            dnsServers.append(directObj);
+        }
 
         dns["disableFallback"] = true;
         dns["servers"] = dnsServers;
@@ -573,7 +578,7 @@ namespace NekoGui {
             if (thisExternalStat > 0) {
                 auto extR = ent->bean->BuildExternal(ext_mapping_port, ext_socks_port, thisExternalStat);
                 if (extR.program.isEmpty()) {
-                    status->result->error = QObject::tr("Core not found: %1").arg(ent->bean->DisplayType());
+                    status->result->error = QObject::tr("Core not found: %1").arg(ent->bean->DisplayCoreType());
                     return {};
                 }
                 if (!extR.error.isEmpty()) { // rejected
@@ -682,7 +687,7 @@ namespace NekoGui {
                 if (!server.isEmpty()) serverAddress = server;
             }
 
-            if (isFirstProfile && !IsIpAddress(serverAddress)) {
+            if (!IsIpAddress(serverAddress)) {
                 status->domainListDNSDirect += "full:" + serverAddress;
             }
 
@@ -854,14 +859,20 @@ namespace NekoGui {
         // Direct
         auto directDNSAddress = dataStore->routing->direct_dns;
         if (directDNSAddress == "localhost") directDNSAddress = BOX_UNDERLYING_DNS_EXPORT;
-        if (!status->forTest)
-            dnsServers += QJsonObject{
+        if (!status->forTest) {
+            QJsonObject directObj{
                 {"tag", "dns-direct"},
                 {"address_resolver", "dns-local"},
                 {"strategy", dataStore->routing->direct_dns_strategy},
                 {"address", directDNSAddress.replace("+local://", "://")},
                 {"detour", "direct"},
             };
+            if (dataStore->routing->dns_final_out == "bypass") {
+                dnsServers.prepend(directObj);
+            } else {
+                dnsServers.append(directObj);
+            }
+        }
 
         // block
         if (!status->forTest)

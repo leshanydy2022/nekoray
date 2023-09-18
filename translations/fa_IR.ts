@@ -84,10 +84,6 @@
         <translation>هم زمان</translation>
     </message>
     <message>
-        <source>Test URL</source>
-        <translation type="vanished">url تست</translation>
-    </message>
-    <message>
         <source>Use proxy when updating subscription</source>
         <translation>استفاده از پروکسی زمانی که اشتراک را بروزرسانی می کنید</translation>
     </message>
@@ -254,6 +250,14 @@ For NekoBox, this rewrites the underlying(localhost) DNS in Tun Mode, normal mod
     <message>
         <source>Interval (minute, invalid if less than 30)</source>
         <translation type="unfinished">فاصله (به دقیقا ، اگر کمتر از ۳۰ باشد نادرست است)</translation>
+    </message>
+    <message>
+        <source>Share VMess Link with v2rayN Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Old Share Link Format</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -499,10 +503,6 @@ These settings can be changed later.</source>
         <translation type="unfinished">به نظر میرسد که شما برای اولین بار است که از این نرم افزار استفاده میکنید ، لطفا یک هسته را انتخاب کنید ، این تنظیمات میتواند بعدا تغییر یابد.</translation>
     </message>
     <message>
-        <source>Exit</source>
-        <translation type="obsolete">خروج</translation>
-    </message>
-    <message>
         <source>Quit</source>
         <translation type="unfinished">خروج</translation>
     </message>
@@ -721,6 +721,10 @@ If the default value does not work, try changing it to &quot;223.5.5.5&quot;.
 For more information, see the document &quot;Configuration/DNS&quot;.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Final DNS Out</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DialogVPNSettings</name>
@@ -856,7 +860,46 @@ This needs to be run NekoBox with administrator privileges.</source>
     </message>
 </context>
 <context>
-    <name>EditHysteria</name>
+    <name>EditNaive</name>
+    <message>
+        <source>Protocol</source>
+        <translation>پروتکل</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>رمزعبور</translation>
+    </message>
+    <message>
+        <source>Extra headers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SNI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation>نام کاربری</translation>
+    </message>
+    <message>
+        <source>Certificate</source>
+        <translation type="unfinished">گواهی</translation>
+    </message>
+    <message>
+        <source>Insecure concurrency</source>
+        <translation>همزمانی ناامن</translation>
+    </message>
+    <message>
+        <source>Disable logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turn on this option if your connection is lost after a while</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>EditQUIC</name>
     <message>
         <source>Certificate</source>
         <translation type="unfinished">گواهی</translation>
@@ -905,36 +948,37 @@ This needs to be run NekoBox with administrator privileges.</source>
         <source>Auth Payload</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>EditNaive</name>
     <message>
-        <source>Protocol</source>
-        <translation>پروتکل</translation>
+        <source>Disable SNI</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Password</source>
-        <translation>رمزعبور</translation>
-    </message>
-    <message>
-        <source>Extra headers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>SNI</source>
+        <source>Generate UUID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Username</source>
-        <translation>نام کاربری</translation>
+        <source>Heartbeat</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Certificate</source>
-        <translation type="unfinished">گواهی</translation>
+        <source>Zero Rtt Handshake</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Insecure concurrency</source>
-        <translation>همزمانی ناامن</translation>
+        <source>Congestion Control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UDP Relay Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Force use external core</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1302,8 +1346,8 @@ This needs to be run NekoBox with administrator privileges.</source>
         <translation>لینک های انتخاب شده را کپی کنید</translation>
     </message>
     <message>
-        <source>Enable VPN</source>
-        <translation>فعال کردن vpn</translation>
+        <source>Enable Tun</source>
+        <translation>فعال کردن tun</translation>
     </message>
     <message>
         <source>Clone</source>
@@ -1328,10 +1372,6 @@ This needs to be run NekoBox with administrator privileges.</source>
     <message>
         <source>Open Config Folder</source>
         <translation>پوشه Config باز شود</translation>
-    </message>
-    <message>
-        <source>Default</source>
-        <translation type="vanished">پیش فرض</translation>
     </message>
     <message>
         <source>Load routing and apply: %1</source>
@@ -1449,10 +1489,6 @@ End: %2</source>
         <translation>فرآیند Tun متوقف نشد</translation>
     </message>
     <message>
-        <source>Input</source>
-        <translation type="vanished">ورودی</translation>
-    </message>
-    <message>
         <source>[%1] test error: %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1531,6 +1567,10 @@ End: %2</source>
     <message>
         <source>Restart the program to take effect.</source>
         <translation type="unfinished">برای مشاهده نتیجه برنامه را دوباره راه اندازی کنید</translation>
+    </message>
+    <message>
+        <source>Stop Testing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1647,14 +1687,6 @@ Direct: %2</source>
     <message>
         <source>Request with proxy but no profile started.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable VPN</source>
-        <translation type="obsolete">فعال کردن vpn</translation>
-    </message>
-    <message>
-        <source>Enable System Proxy</source>
-        <translation type="obsolete">پروکسی سیستم را فعال کنید</translation>
     </message>
     <message>
         <source>Subscription request fininshed: %1</source>

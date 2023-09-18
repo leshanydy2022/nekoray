@@ -9,6 +9,7 @@
 #include <QFile>
 #include <QMessageBox>
 #include <QListWidget>
+#include <QLineEdit>
 
 #define REFRESH_ACTIVE_ROUTING(name, obj)           \
     this->active_routing = name;                    \
@@ -149,10 +150,11 @@ void DialogManageRoutes::UpdateDisplayRouting(NekoGui::Routing *conf, bool qv) {
     ui->use_dns_object->setChecked(conf->use_dns_object);
     ui->dns_object->setPlainText(conf->dns_object);
     ui->dns_routing->setChecked(conf->dns_routing);
-    ui->remote_dns->setText(conf->remote_dns);
+    ui->remote_dns->setCurrentText(conf->remote_dns);
     ui->remote_dns_strategy->setCurrentText(conf->remote_dns_strategy);
-    ui->direct_dns->setText(conf->direct_dns);
+    ui->direct_dns->setCurrentText(conf->direct_dns);
     ui->direct_dns_strategy->setCurrentText(conf->direct_dns_strategy);
+    ui->dns_final_out->setCurrentText(conf->dns_final_out);
 }
 
 void DialogManageRoutes::SaveDisplayRouting(NekoGui::Routing *conf) {
@@ -171,10 +173,11 @@ void DialogManageRoutes::SaveDisplayRouting(NekoGui::Routing *conf) {
     conf->use_dns_object = ui->use_dns_object->isChecked();
     conf->dns_object = ui->dns_object->toPlainText();
     conf->dns_routing = ui->dns_routing->isChecked();
-    conf->remote_dns = ui->remote_dns->text();
+    conf->remote_dns = ui->remote_dns->currentText();
     conf->remote_dns_strategy = ui->remote_dns_strategy->currentText();
-    conf->direct_dns = ui->direct_dns->text();
+    conf->direct_dns = ui->direct_dns->currentText();
     conf->direct_dns_strategy = ui->direct_dns_strategy->currentText();
+    conf->dns_final_out = ui->dns_final_out->currentText();
 }
 
 void DialogManageRoutes::on_load_save_clicked() {
