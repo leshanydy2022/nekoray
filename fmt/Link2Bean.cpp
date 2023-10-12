@@ -64,11 +64,15 @@ namespace NekoGui_fmt {
         auto sni2 = GetQueryValue(query, "peer");
         if (!sni1.isEmpty()) stream->sni = sni1;
         if (!sni2.isEmpty()) stream->sni = sni2;
+        stream->alpn = GetQueryValue(query, "alpn");
         if (!query.queryItemValue("allowInsecure").isEmpty()) stream->allow_insecure = true;
         stream->reality_pbk = GetQueryValue(query, "pbk", "");
         stream->reality_sid = GetQueryValue(query, "sid", "");
         stream->reality_spx = GetQueryValue(query, "spx", "");
         stream->utlsFingerprint = GetQueryValue(query, "fp", "");
+        if (stream->utlsFingerprint.isEmpty()) {
+            stream->utlsFingerprint = NekoGui::dataStore->utlsFingerprint;
+        }
 
         // type
         if (stream->network == "ws") {
@@ -184,6 +188,9 @@ namespace NekoGui_fmt {
             stream->reality_sid = GetQueryValue(query, "sid", "");
             stream->reality_spx = GetQueryValue(query, "spx", "");
             stream->utlsFingerprint = GetQueryValue(query, "fp", "");
+            if (stream->utlsFingerprint.isEmpty()) {
+                stream->utlsFingerprint = NekoGui::dataStore->utlsFingerprint;
+            }
 
             // type
             if (stream->network == "ws") {
@@ -232,7 +239,7 @@ namespace NekoGui_fmt {
             // https://hysteria.network/docs/uri-scheme/
             if (!query.hasQueryItem("upmbps") || !query.hasQueryItem("downmbps")) return false;
 
-            name = url.fragment();
+            name = url.fragment(QUrl::FullyDecoded);
             serverAddress = url.host();
             serverPort = url.port();
             hopPort = query.queryItemValue("mport");
@@ -262,7 +269,7 @@ namespace NekoGui_fmt {
             // by daeuniverse
             // https://github.com/daeuniverse/dae/discussions/182
 
-            name = url.fragment();
+            name = url.fragment(QUrl::FullyDecoded);
             serverAddress = url.host();
             if (serverPort == -1) serverPort = 443;
             serverPort = url.port();
@@ -277,7 +284,7 @@ namespace NekoGui_fmt {
             allowInsecure = query.queryItemValue("allow_insecure") == "1";
             disableSni = query.queryItemValue("disable_sni") == "1";
         } else if (QStringList{"hy2", "hysteria2"}.contains(url.scheme())) {
-            name = url.fragment();
+            name = url.fragment(QUrl::FullyDecoded);
             serverAddress = url.host();
             serverPort = url.port();
             // hopPort = query.queryItemValue("mport");
